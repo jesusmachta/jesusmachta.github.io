@@ -1,1 +1,120 @@
-Hello World
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Bingo De Abuelas</title>
+  </head>
+  <body>
+    <div class="container">
+      <h5><img src="images/Bingo.png" class="image" /></h5>
+      <div>
+        <button class="btn" id="start-button">Comenzar Juego</button>
+      </div>
+      <div>
+        <button class="btn" id="rule-button">Reglas del Juego</button>
+      </div>
+      <div class="level" id="level">
+        <h1>Nivel</h1>
+        <button class="lvlbtn" id="Facil">Facil</button>
+        <button class="lvlbtn" id="Medio">Medio</button>
+        <button class="lvlbtn" id="Dificil">Dificil</button>
+        <p>Escoge la Dificultad</p>
+        <button class="btn" id="OIrAtras-button">Ir Atras</button>
+      </div>
+      <div class="GameRules" id="GameRules">
+        <h2>!!Reglas para las abuelitas!!</h2>
+        <div>
+          <h3>Objetivo:</h3>
+          <p>
+            Su misión como programador es simular un juego de 4 personas de
+            bingo. Simulando los cartones aleatorios, las fichas que se van
+            anunciado, etc. Tenga en cuenta que las señoras tienen un tiempo
+            limitado, entonces el juego durará 25 turnos cómo máximo, pero
+            terminará si alguien llega a cartón lleno.
+          </p>
+
+          <h3>Como se Juega:</h3>
+          <h4>Menú Principal</h4>
+          <p>
+            1. Antes de iniciar el juego, deberá mostrar una tabla con el
+            puntaje total de los jugadores (con localstorage). Más información
+            al final
+            <br />
+            2. Antes de iniciar el juego, se debe solicitar al usuario una lista
+            de nombres de 4 jugadores, y el tamaño del cartón (el cartón deberá
+            ser cuadrado, por ejemplo, si se ingresa el valor 3 se generarán
+            cartones de 3x3).
+            <br />
+            3. Una vez se hayan ingresado estos datos, se habilita un botón de
+            inicio para comenzar el juego de Bingo.
+            <br />
+            4. Se deberá tener una función que genere aleatoriamente una matriz
+            cuadrada NxN (el cartón de bingo) para cada jugador (un total de 4
+            cartones en el sistema). (El parámetro N debe obtener como valores
+            números enteros entre 3 y 5)
+            <br />
+            5. Los números generados aleatoriamente van desde el 1 hasta el 50
+            [1,50]
+            <br />
+            6. Al iniciar el juego, deberá tener un contador de turnos global
+            (el mismo para todos los jugadores) que se actualice con cada nuevo
+            turno.
+          </p>
+          <h4>Juego de Bingo</h4>
+          <p>
+            1. Los números generados aleatoriamente van desde el 1 hasta el 50
+            [1,50]
+            <br />
+            2. En todo momento se debe mostrar el cartón de Bingo de un jugador,
+            y se debe poder cambiar de cartón a través de la interfaz (pueden
+            usar botones, select, etc., para seleccionar cuál jugador mostrar).
+            <br />
+            3. En él se deben mostrar los números de cada casilla y se deben
+            resaltar las casillas que hayan sido marcadas (es decir, los números
+            que hayan salido durante la partida que estén en el cartón).
+            <br />
+            4. La interfaz debe incluir un botón que servirá para sacar un
+            número de Bingo aleatorio. Se deberá mostrar en pantalla el número
+            obtenido y se debe actualizar los cartones en caso de coincidir con
+            alguna casilla. Tenga en cuenta que los
+            <br />
+            5. Los números generados aleatoriamente van desde el 1 hasta el 50
+            [1,50]
+            <br />
+            6. Cada vez que se consiga la ficha en el cartón, calcular si se
+            consiguió una nueva línea o cartón lleno.
+            <br />
+            7. Se debe validar cada uno de los números obtenidos de forma que no
+            aparezcan números repetidos
+            <br />
+            8. El juego durará cómo máximo 25 turnos, pero si alguien consigue
+            cartón lleno se termina.
+            <br />
+            9. Al iniciar el juego, deberá tener un contador de turnos global
+            (el mismo para todos los jugadores) que se actualice con cada nuevo
+            turno.
+            <br />
+            10. Al terminar debe mostrar en la interfaz, el puntaje de total de
+            cada persona y la cantidad de victorias acumuladas de cada uno.
+            <br />
+            Con cada victoria, se actualizará la base de datos de victorias
+            (localStorage). En esta, cada jugador tendrá un número de victorias
+            acumuladas que aumenta cada vez que gana.
+          </p>
+        </div>
+        <h2>!!Disfruta del juego y buena suerte!!</h2>
+        <button class="btn" id="RGoBack-button">Ir Atras</button>
+        <div>
+          <button class="btn" id="reset-button">Reiniciar Juego</button>
+        </div>
+      </div>
+      <div class="grid-container" id="grid-container">
+      </div>
+      <div class="imageContainer1" id="imageContainer"></div>
+      <div class="selectedNum">
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
