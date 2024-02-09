@@ -10,17 +10,17 @@
     <div class="container">
       <h5><img src="images/Bingo.png" class="image" /></h5>
       <div>
-        <button class="btn" id="start-button">Comenzar Juego</button>
+        <button class="btn" id="comenzar-button">Comenzar Juego</button>
       </div>
       <div>
-        <button class="btn" id="rule-button">Reglas del Juego</button>
+        <button class="btn" id="reglas-button">Reglas del Juego</button>
       </div>
       <div class="level" id="level">
-        <h1>Nivel</h1>
-        <button class="lvlbtn" id="Facil">Facil</button>
-        <button class="lvlbtn" id="Medio">Medio</button>
-        <button class="lvlbtn" id="Dificil">Dificil</button>
-        <p>Escoge la Dificultad</p>
+        <h1>Nivel</h1> 
+        <button class="lvlbtn" id="3x3">3x3</button>
+        <button class="lvlbtn" id="4x4">4x4</button>
+        <button class="lvlbtn" id="5x5">5x5</button>
+        <p>Escoge la Modalidad</p>
         <button class="btn" id="OIrAtras-button">Ir Atras</button>
       </div>
       <div class="GameRules" id="GameRules">
@@ -105,16 +105,35 @@
           </p>
         </div>
         <h2>!!Disfruta del juego y buena suerte!!</h2>
-        <button class="btn" id="RGoBack-button">Ir Atras</button>
-        <div>
-          <button class="btn" id="reset-button">Reiniciar Juego</button>
-        </div>
+        <button class="btn" id="RIrAtras-button">Ir Atras</button>
       </div>
       <div class="grid-container" id="grid-container">
       </div>
-      <div class="imageContainer1" id="imageContainer"></div>
-      <div class="selectedNum">
-    </div>
-    <script src="script.js"></script>
+      <div class="imageContainer1" id="imageContainer">
+      </div>
+      <div class="selectedNum" >
+          <div>
+              <div id="PlayerNum1"></div>
+              <h3 id="fonthide1">You</h3> 
+          </div>   
+          <div>   
+              <div id="PlayerNum2"></div>
+              <h3 id="fonthide2">Bot</h3>
+          </div>
+          <div>
+              <div id="PlayerNum3"></div>
+              <h3 id="fonthide1">You</h3> 
+          </div>   
+          <div>   
+              <div id="PlayerNum4"></div>
+              <h3 id="fonthide2">Bot</h3>
+          </div>
+      </div>
+      <div  id="wordContainer">
+      </div>
+      <div >
+        <button class="btn" id="reiniciar-button">Reiniciar Juego</button>
+      </div>
+      <script src="script.js"></script>
   </body>
 </html>
