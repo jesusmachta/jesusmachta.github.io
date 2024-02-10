@@ -16,125 +16,69 @@
         <button class="btn" id="reglas-button">Reglas del Juego</button>
       </div>
       <div class="level" id="level">
-        <h1>Modos de Juego</h1>
-        <button class="lvlbtn" id="3">3x3</button>
-        <button class="lvlbtn" id="4">4x4</button>
-        <button class="lvlbtn" id="5">5x5</button>
+        <h1>Nivel</h1>
+        <button class="lvlbtn" id="3x3">3x3</button>
+        <button class="lvlbtn" id="4x4">4x4</button>
+        <button class="lvlbtn" id="5x5">5x5</button>
         <p>Escoge la Modalidad</p>
         <button class="btn" id="OIrAtras-button">Ir Atras</button>
       </div>
       <div class="GameRules" id="GameRules">
-        <h2>!!Reglas para las abuelitas!!</h2>
-        <div>
-          <h3>Objetivo:</h3>
-          <p>
-            Su misión como programador es simular un juego de 4 personas de
-            bingo. Simulando los cartones aleatorios, las fichas que se van
-            anunciado, etc. Tenga en cuenta que las señoras tienen un tiempo
-            limitado, entonces el juego durará 25 turnos cómo máximo, pero
-            terminará si alguien llega a cartón lleno.
-          </p>
-
-          <h3>Como se Juega:</h3>
-          <h4>Menú Principal</h4>
-          <p>
-            1. Antes de iniciar el juego, deberá mostrar una tabla con el
-            puntaje total de los jugadores (con localstorage). Más información
-            al final
-            <br />
-            2. Antes de iniciar el juego, se debe solicitar al usuario una lista
-            de nombres de 4 jugadores, y el tamaño del cartón (el cartón deberá
-            ser cuadrado, por ejemplo, si se ingresa el valor 3 se generarán
-            cartones de 3x3).
-            <br />
-            3. Una vez se hayan ingresado estos datos, se habilita un botón de
-            inicio para comenzar el juego de Bingo.
-            <br />
-            4. Se deberá tener una función que genere aleatoriamente una matriz
-            cuadrada NxN (el cartón de bingo) para cada jugador (un total de 4
-            cartones en el sistema). (El parámetro N debe obtener como valores
-            números enteros entre 3 y 5)
-            <br />
-            5. Los números generados aleatoriamente van desde el 1 hasta el 50
-            [1,50]
-            <br />
-            6. Al iniciar el juego, deberá tener un contador de turnos global
-            (el mismo para todos los jugadores) que se actualice con cada nuevo
-            turno.
-          </p>
-          <h4>Juego de Bingo</h4>
-          <p>
-            1. Los números generados aleatoriamente van desde el 1 hasta el 50
-            [1,50]
-            <br />
-            2. En todo momento se debe mostrar el cartón de Bingo de un jugador,
-            y se debe poder cambiar de cartón a través de la interfaz (pueden
-            usar botones, select, etc., para seleccionar cuál jugador mostrar).
-            <br />
-            3. En él se deben mostrar los números de cada casilla y se deben
-            resaltar las casillas que hayan sido marcadas (es decir, los números
-            que hayan salido durante la partida que estén en el cartón).
-            <br />
-            4. La interfaz debe incluir un botón que servirá para sacar un
-            número de Bingo aleatorio. Se deberá mostrar en pantalla el número
-            obtenido y se debe actualizar los cartones en caso de coincidir con
-            alguna casilla. Tenga en cuenta que los
-            <br />
-            5. Los números generados aleatoriamente van desde el 1 hasta el 50
-            [1,50]
-            <br />
-            6. Cada vez que se consiga la ficha en el cartón, calcular si se
-            consiguió una nueva línea o cartón lleno.
-            <br />
-            7. Se debe validar cada uno de los números obtenidos de forma que no
-            aparezcan números repetidos
-            <br />
-            8. El juego durará cómo máximo 25 turnos, pero si alguien consigue
-            cartón lleno se termina.
-            <br />
-            9. Al iniciar el juego, deberá tener un contador de turnos global
-            (el mismo para todos los jugadores) que se actualice con cada nuevo
-            turno.
-            <br />
-            10. Al terminar debe mostrar en la interfaz, el puntaje de total de
-            cada persona y la cantidad de victorias acumuladas de cada uno.
-            <br />
-            Con cada victoria, se actualizará la base de datos de victorias
-            (localStorage). En esta, cada jugador tendrá un número de victorias
-            acumuladas que aumenta cada vez que gana.
-          </p>
+        <!-- Reglas del juego -->
+    </div>
+    <div class="grid-container" id="grid-container"></div>
+    <div class="imageContainer1" id="imageContainer"></div>
+    <div <form id="player-form"></form> </div>
+    <div>
+      <div class="players-container"> </div>
+        <div class="player" id="player1-card" data-player="1">
+          <input
+            type="text"
+            id="player1-name"
+            placeholder="Nombre del jugador 1"
+            required
+          />
         </div>
-        <h2>!!Disfruta del juego y buena suerte!!</h2>
-        <button class="btn" id="RIrAtras-button">Ir Atras</button>
+        <div class="players-container"></div>
+        <div class="player" id="player2-card" data-player="2">
+          <input
+            type="text"
+            id="player2-name"
+            placeholder="Nombre del jugador 2"
+            required
+          />
+        </div>
+        <div class="players-container"></div>
+        <div class="player" id="player3-card" data-player="3">
+          <input
+            type="text"
+            id="player3-name"
+            placeholder="Nombre del jugador 3"
+            required
+          />
+        </div>
+        <div class="players-container"></div>
+        <div class="player" id="player4-card" data-player="4">
+          <input
+            type="text"
+            id="player4-name"
+            placeholder="Nombre del jugador 4"
+            required
+          />
+        </div>
+        <div class="grid-container" id="grid-container"></div>
+        <div id="turno-container" class="turno-container">
+          <p id="turno-actual"></p>
+          <button class = "btn" id="nuevo-turno-button">Sacar numero del Bowl</button>
+        </div>
+        <div class="imageContainer1" id="imageContainer"></div>
+        <div id="wordContainer"></div>
+        <div>
+          <button  onclick = "crearJugador()" class="btn" id="iniciar-button">Iniciar Partida</button>
+        </div>
+        <button class="btn" id="reiniciar-button">Reiniciar Juego</button>
       </div>
-      <div class="grid-container" id="grid-container"></div>
-      <div class="imageContainer1" id="imageContainer"></div>
-      <div <form id="player-form"></form> </div>
-      <div>
-        <input type="text" id="PlayerNum1" required />
-        <h3 id="fonthide1">Jugador 1</h3>
-      </div>
-      <div>
-        <input type="text" id="PlayerNum2" required />
-        <h3 id="fonthide2">Jugador 2</h3>
-      </div>
-      <div>
-        <input type="text" id="PlayerNum3" required />
-        <h3 id="fonthide3">Jugador 3</h3>
-      </div>
-      <div>
-        <input type="text" id="PlayerNum4" required />
-        <h3 id="fonthide4">Jugador 4</h3>
-      </div>
-    <div id="wordContainer"></div>
-    <div>
-      <button  onclick = "crearJugador()" class="btn" id="iniciar-button">Iniciar Partida</button>
     </div>
-
-    <div>
-      <button class="btn" id="reiniciar-button">Reiniciar Juego y Modalidad</button>
-    </div>
-    
     <script src="script.js"></script>
   </body>
 </html>
