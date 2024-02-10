@@ -16,10 +16,10 @@
         <button class="btn" id="reglas-button">Reglas del Juego</button>
       </div>
       <div class="level" id="level">
-        <h1>Nivel</h1>
-        <button class="lvlbtn" id="3x3">3x3</button>
-        <button class="lvlbtn" id="4x4">4x4</button>
-        <button class="lvlbtn" id="5x5">5x5</button>
+        <h1>Modos de Juego</h1>
+        <button class="lvlbtn" id="3">3x3</button>
+        <button class="lvlbtn" id="4">4x4</button>
+        <button class="lvlbtn" id="5">5x5</button>
         <p>Escoge la Modalidad</p>
         <button class="btn" id="OIrAtras-button">Ir Atras</button>
       </div>
@@ -126,11 +126,15 @@
         <input type="text" id="PlayerNum4" required />
         <h3 id="fonthide4">Jugador 4</h3>
       </div>
-    </div>
     <div id="wordContainer"></div>
     <div>
-      <button class="btn" id="reiniciar-button">Reiniciar Juego</button>
+      <button  onclick = "crearJugador()" class="btn" id="iniciar-button">Iniciar Partida</button>
     </div>
+
+    <div>
+      <button class="btn" id="reiniciar-button">Reiniciar Juego y Modalidad</button>
+    </div>
+    
     <script src="script.js"></script>
   </body>
 </html>
