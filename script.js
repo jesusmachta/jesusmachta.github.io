@@ -1,5 +1,9 @@
 
 document.addEventListener('DOMContentLoaded', function(){
+    let players = [];
+    let currentPlayerIndex = 0;
+    let turns = 0;
+
     const startGame = document.getElementById('comenzar-button');
     const playAgain = document.getElementById('reiniciar-button');
     const rulesButton = document.getElementById('reglas-button');
@@ -8,71 +12,58 @@ document.addEventListener('DOMContentLoaded', function(){
     const Optiongoback = document.getElementById('OIrAtras-button');
     const Options = document.getElementById('level');
     const Gamecontent = document.getElementById('grid-container');
-    const PlayerCont1 = document.getElementById('PlayerNum1');
-    const PlayerCont2 = document.getElementById('PlayerNum2');
-    const PlayerCont3 = document.getElementById('PlayerNum3');
-    const PlayerCont4 = document.getElementById('PlayerNum4');
+    const PlayerNum1 = document.getElementById('PlayerNum1');
+    const PlayerNum2 = document.getElementById('PlayerNum2');
+    const PlayerNum3 = document.getElementById('PlayerNum3');
+    const PlayerNum4 = document.getElementById('PlayerNum4');
     const fonthide1 = document.getElementById('fonthide1');
     const fonthide2 = document.getElementById('fonthide2');
+    const fonthide3 = document.getElementById('fonthide3');
+    const fonthide4 = document.getElementById('fonthide4');
     const level3x3 = document.getElementById('3x3');
     const level4x4 = document.getElementById('4x4');
     const level5x5 = document.getElementById('5x5');
     
-    //for easy level
     level3x3.addEventListener('click', () => {
-        //console.log('Button clicked');
         Options.style.display = 'none';
         Gamecontent.style.display = 'grid';
-        PlayerCont.style.display = 'flex';
-        BotContent.style.display = 'flex';
+        PlayerNum1.style.display = 'flex';
+        PlayerNum2.style.display = 'flex';
+        PlayerNum3.style.display = 'flex';
+        PlayerNum4.style.display = 'flex';
         fonthide1.style.display = 'block';
         fonthide2.style.display = 'block';
+        fonthide3.style.display = 'block';
+        fonthide4.style.display = 'block';
         playAgain.style.display = 'block';
-        levelOption = 1;
-        if(starter == 2){
-            botturn();
-            wordContainer.innerHTML = 'Bot started the Match';
-        } else {
-            wordContainer.innerHTML = 'Click on any number to start the match!';
-        }
     });
     
-    //for medium level
     level4x4.addEventListener('click', () => {
-        //console.log('Button clicked');
         Options.style.display = 'none';
         Gamecontent.style.display = 'grid';
-        PlayerCont.style.display = 'flex';
-        BotContent.style.display = 'flex';
+        PlayerNum1.style.display = 'flex';
+        PlayerNum2.style.display = 'flex';
+        PlayerNum3.style.display = 'flex';
+        PlayerNum4.style.display = 'flex';
         fonthide1.style.display = 'block';
         fonthide2.style.display = 'block';
+        fonthide3.style.display = 'block';
+        fonthide4.style.display = 'block';
         playAgain.style.display = 'block';
-        levelOption = 2;
-        if(starter == 2){
-            botturn();
-            wordContainer.innerHTML = 'Bot started the Match';
-        } else {
-            wordContainer.innerHTML = 'Click on any number to start the match!';
-        }
     });
     
-    //for hard level
     level5x5.addEventListener('click', () => {
-        //console.log('Button clicked');
         Options.style.display = 'none';
         Gamecontent.style.display = 'grid';
-        PlayerCont.style.display = 'flex';
-        BotContent.style.display = 'flex';
+        PlayerNum1.style.display = 'flex';
+        PlayerNum2.style.display = 'flex';
+        PlayerNum3.style.display = 'flex';
+        PlayerNum4.style.display = 'flex';
         fonthide1.style.display = 'block';
         fonthide2.style.display = 'block';
+        fonthide3.style.display = 'block';
+        fonthide4.style.display = 'block';
         playAgain.style.display = 'block';
-        levelOption = 3;
-        if(starter == 2){
-            botturn();
-            wordContainer.innerHTML = 'Bot started the Match';
-        } else {
-            wordContainer.innerHTML = 'Click on any number to start the match!';
-        }
     });
     playAgain.addEventListener('click', () => {
         location.reload();
@@ -113,4 +104,4 @@ document.addEventListener('DOMContentLoaded', function(){
         
     });
     });
-    
+
