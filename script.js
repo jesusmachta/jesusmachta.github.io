@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function(){
     let currentPlayerIndex = 0;
     let turnoActual = 0;
     let turnoCount = 0; // Variable para llevar el conteo de los turnos
+    let puntajes = [0, 0, 0, 0]; // Puntajes iniciales de cada jugador
 
     const startGame = document.getElementById('comenzar-button');
     const playAgain = document.getElementById('reiniciar-button');
@@ -47,6 +48,11 @@ document.addEventListener('DOMContentLoaded', function(){
             }
             playerContainer.appendChild(row);
         }
+        // Agregar el puntaje debajo del cartón del jugador
+        const scoreDisplay = document.createElement('div');
+        scoreDisplay.classList.add('score-display');
+        scoreDisplay.textContent = 'Puntaje: 0';
+        playerContainer.appendChild(scoreDisplay);
     }
 
     function switchPlayer(playerIndex) {
@@ -67,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function(){
     }
 
     function updateTurnoDisplay() {
-        turnoContainer.textContent = `Bola actual: ${turnoActual}, Turno: ${turnoCount}`;
+        turnoContainer.textContent = `Turno actual: ${turnoActual}, Turno: ${turnoCount}`;
         markCellsWithNewNumber();
     }
 
@@ -100,12 +106,76 @@ document.addEventListener('DOMContentLoaded', function(){
         const cell = event.target;
         if (!cell.classList.contains('marked')) {
             markCell(cell);
-            // Aquí puedes agregar la lógica para verificar si el número marcado coincide con el número anunciado
         }
     }
 
     function announceNextNumber() {
         // Lógica para anunciar el siguiente número del bingo
+    }
+
+    function calculateScores() {
+        // Verificar cartón lleno y actualizar puntajes
+        for (let i = 0; i < 4; i++) {
+            const playerCard = document.querySelectorAll(`#player${i+1}-card .cell`);
+            const markedCells = document.querySelectorAll(`#player${i+1}-card .cell.marked`);
+
+            if (markedCells.length === playerCard.length) {
+                puntajes[i] += 5; // Cartón lleno: 5 puntos
+            }
+
+            const rows = new Set();
+            const cols = new Set();
+            let diagonal1 = true;
+            let diagonal2 = true;
+
+            markedCells.forEach(cell => {
+                rows.add(cell.dataset.row);
+                cols.add(cell.dataset.col);
+
+                if (parseInt(cell.dataset.row) !== parseInt(cell.dataset.col)) {
+                    diagonal1 = false;
+                }
+                if (parseInt(cell.dataset.row) + parseInt(cell.dataset.col) !== playerCard.length - 1) {
+                    diagonal2 = false;
+                }
+            });
+
+            if (rows.size === playerCard.length) {
+                puntajes[i] += 1; // Línea horizontal: 1 punto
+            }
+
+            if (cols.size === playerCard.length) {
+                puntajes[i] += 1; // Línea vertical: 1 punto
+            }
+
+            if (diagonal1 || diagonal2) {
+                puntajes[i] += 3; // Línea diagonal: 3 puntos
+            }
+
+            updateScoreDisplay(i);
+        }
+    }
+
+    function updateScoreDisplay(playerIndex) {
+        // Actualizar el puntaje mostrado en el cartón del jugador
+        const scoreDisplay = document.querySelector(`#player${playerIndex + 1}-card .score-display`);
+        scoreDisplay.textContent = `Puntaje: ${puntajes[playerIndex]}`;
+    }
+
+    function endGame() {
+        // Mostrar puntajes finales
+        calculateScores();
+
+        // Verificar si algún jugador ha ganado
+        for (let i = 0; i < 4; i++) {
+            if (puntajes[i] >= 5) {
+                alert(`¡Fin del juego! El jugador ${i + 1} ha ganado con un cartón lleno o con la suma de los puntajes!.`);
+                return; // Finalizar el juego si un jugador ha ganado
+            }
+        }
+
+        // Si ningún jugador ha ganado, mostrar un mensaje de empate
+        alert("¡Fin del juego! Se han alcanzado los 25 turnos.");
     }
 
     // Event listeners para los botones
@@ -170,14 +240,12 @@ document.addEventListener('DOMContentLoaded', function(){
             turnoCount++; // Incrementar el conteo de turnos
             updateTurnoDisplay();
             if (turnoCount === 25) {
-                // Mostrar mensaje de fin del juego
-                alert("¡Fin del juego! Se han alcanzado los 25 turnos.");
-                // Puedes agregar aquí cualquier otra lógica que desees para finalizar el juego
+                // Finalizar el juego si se alcanza el límite de turnos
+                endGame();
             }
         } else {
-            // Mostrar mensaje de fin del juego si se intenta generar más turnos después de alcanzar el límite
-            alert("¡Fin del juego! Se han alcanzado los 25 turnos.");
-            // Puedes agregar aquí cualquier otra lógica que desees para finalizar el juego
+            // Finalizar el juego si se intenta generar más turnos después de alcanzar el límite
+            endGame();
         }
     });
 });
