@@ -97,7 +97,7 @@ body {
 .player .cell.marked::after {
     content: "X";
     color: red;
-    font-size: 24px;
+    font-size: 50px;
     position: absolute;
 }
 
