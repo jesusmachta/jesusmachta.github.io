@@ -15,6 +15,10 @@
       <div>
         <button class="btn" id="reglas-button">Reglas del Juego</button>
       </div>
+      <div>
+        <!-- Agregar este botón en el menú principal -->
+        <!-- <button id="showWinnersTable" class="btn">Tabla de Ganadores</button> -->
+      </div>
       <div class="level" id="level">
         <h1>Nivel</h1>
         <button class="lvlbtn" id="3x3">3x3</button>
@@ -74,14 +78,15 @@
         <div class="grid-container" id="grid-container"></div>
         <div id="turno-container" class="turno-container">
           <p id="turno-actual"></p>
-          <button class = "btn" id="nuevo-turno-button">Sacar numero del Bowl</button>
+          <button class="btn" id="nuevo-turno-button" style="display: none;">Sacar número del Bowl</button>
+          <button class="btn" id="reiniciar-button">Reiniciar Juego</button>
+          <!-- <button class="btn" id="showWinnersTable">Tabla de Ganadores</button> -->
         </div>
         <div class="imageContainer1" id="imageContainer"></div>
         <div id="wordContainer"></div>
-        <div>
-          <button  onclick = "crearJugador()" class="btn" id="iniciar-button">Iniciar Partida</button>
-        </div>
-        <button class="btn" id="reiniciar-button">Reiniciar Juego</button>
+      </div>
+      <div>
+        <button id="showWinnersTable" class="btn">Tabla de Ganadores</button> 
       </div>
     </div>
     <script src="script.js"></script>

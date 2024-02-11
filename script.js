@@ -16,6 +16,54 @@ document.addEventListener('DOMContentLoaded', function(){
     const wordContainer = document.getElementById('wordContainer');
     const turnoContainer = document.getElementById('turno-actual');
     const nuevoTurnoButton = document.getElementById('nuevo-turno-button');
+    const showWinnersButton = document.getElementById('showWinnersTable');
+
+    // Obtener los datos de jugadores desde el localStorage al cargar la página
+    let jugadores = JSON.parse(localStorage.getItem('jugadores')) || [];
+
+    function guardarJugadores() {
+        localStorage.setItem('jugadores', JSON.stringify(jugadores));
+    }
+
+    function agregarJugador(nombre, puntaje = 0, victorias = 0) {
+        jugadores.push({ nombre, puntaje, victorias});
+        guardarJugadores();
+    }
+
+    function mostrarTablaDeGanadores() {
+        const tabla = document.createElement('table');
+        tabla.innerHTML = `
+            <tr>
+                <div><th>Nombre</th></div>
+
+                <div><th>Puntaje</th></div>
+                
+                <div><th>Victorias</th></div>
+            </tr>
+        `;
+        jugadores.forEach(jugador => {
+            const fila = document.createElement('tr');
+            fila.innerHTML = `
+                <td>${jugador.nombre}</td>
+                <td>${jugador.puntaje}</td>
+                <td>${jugador.victorias}</td>
+            `;
+            tabla.appendChild(fila);
+        });
+        document.body.appendChild(tabla);
+    }
+
+    startGame.addEventListener('click', () => {
+        const playerInputs = document.querySelectorAll('.player input');
+        playerInputs.forEach(input => {
+            const nombre = input.value.trim();
+            if (nombre) {
+                agregarJugador(nombre);
+            }
+        });
+    });
+
+    showWinnersButton.addEventListener('click', mostrarTablaDeGanadores);
 
     function generateBingoMatrix(size) {
         const matrix = [];
@@ -54,6 +102,12 @@ document.addEventListener('DOMContentLoaded', function(){
         scoreDisplay.classList.add('score-display');
         scoreDisplay.textContent = 'Puntaje: 0';
         playerContainer.appendChild(scoreDisplay);
+
+        // Agregar el nombre del jugador
+        const playerName = document.createElement('div');
+        playerName.classList.add('player-name');
+        playerName.textContent = `Jugador ${playerIndex + 1}`;
+        playerContainer.appendChild(playerName);
     }
 
     function switchPlayer(playerIndex) {
@@ -71,6 +125,7 @@ document.addEventListener('DOMContentLoaded', function(){
         switchPlayer(currentPlayerIndex);
         turnoActual = generateUniqueRandomNumber();
         updateTurnoDisplay();
+        nuevoTurnoButton.style.display = 'block';
     }
 
     function updateTurnoDisplay() {
@@ -78,6 +133,7 @@ document.addEventListener('DOMContentLoaded', function(){
         markCellsWithNewNumber();
     }
 
+    
     function markCellsWithNewNumber() {
         const cells = document.querySelectorAll('.cell');
         cells.forEach(cell => {
@@ -101,6 +157,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
     function markCell(cell) {
         cell.classList.add('marked');
+        calculateScores(); // Calcular puntajes cada vez que se marque una celda
     }
 
     function handleCellClick(event) {
@@ -115,44 +172,55 @@ document.addEventListener('DOMContentLoaded', function(){
     }
 
     function calculateScores() {
+        // Reiniciar los puntajes antes de recalcularlos
+        puntajes = [0, 0, 0, 0];
+        
         // Verificar cartón lleno y actualizar puntajes
         for (let i = 0; i < 4; i++) {
-            const playerCard = document.querySelectorAll(`#player${i+1}-card .cell`);
-            const markedCells = document.querySelectorAll(`#player${i+1}-card .cell.marked`);
-
+            const playerCard = document.querySelectorAll(`#player${i + 1}-card .cell`);
+            const matrixSize = Math.sqrt(playerCard.length); // Tamaño de la matriz
+            
+            const markedCells = document.querySelectorAll(`#player${i + 1}-card .cell.marked`);
+            
             if (markedCells.length === playerCard.length) {
                 puntajes[i] += 5; // Cartón lleno: 5 puntos
             }
-
+            
             const rows = new Set();
             const cols = new Set();
             let diagonal1 = true;
             let diagonal2 = true;
-
+            
             markedCells.forEach(cell => {
-                rows.add(cell.dataset.row);
-                cols.add(cell.dataset.col);
-
+                rows.add(parseInt(cell.dataset.row));
+                cols.add(parseInt(cell.dataset.col));
+                
                 if (parseInt(cell.dataset.row) !== parseInt(cell.dataset.col)) {
                     diagonal1 = false;
                 }
-                if (parseInt(cell.dataset.row) + parseInt(cell.dataset.col) !== playerCard.length - 1) {
+                if (parseInt(cell.dataset.row) + parseInt(cell.dataset.col) !== matrixSize - 1) {
                     diagonal2 = false;
                 }
             });
-
-            if (rows.size === playerCard.length) {
+            
+            if (rows.size === matrixSize) {
                 puntajes[i] += 1; // Línea horizontal: 1 punto
             }
-
-            if (cols.size === playerCard.length) {
+            
+            if (cols.size === matrixSize) {
                 puntajes[i] += 1; // Línea vertical: 1 punto
             }
-
+            
             if (diagonal1 || diagonal2) {
                 puntajes[i] += 3; // Línea diagonal: 3 puntos
             }
-
+        }
+    
+        // Imprimir los puntajes para depuración
+        console.log('Puntajes calculados:', puntajes);
+    
+        // Actualizar el puntaje mostrado en el cartón de cada jugador
+        for (let i = 0; i < 4; i++) {
             updateScoreDisplay(i);
         }
     }
@@ -164,22 +232,48 @@ document.addEventListener('DOMContentLoaded', function(){
     }
 
     function endGame() {
-        // Mostrar puntajes finales
-        calculateScores();
-
         // Verificar si algún jugador ha ganado
+        let maxScore = -1;
+        let winnerIndex = -1;
+    
         for (let i = 0; i < 4; i++) {
-            if (puntajes[i] >= 5) {
-                alert(`¡Fin del juego! El jugador ${i + 1} ha ganado con un cartón lleno o con la suma de los puntajes!.`);
-                return; // Finalizar el juego si un jugador ha ganado
+            if (puntajes[i] > maxScore) {
+                maxScore = puntajes[i];
+                winnerIndex = i;
             }
         }
-
-        // Si ningún jugador ha ganado, mostrar un mensaje de empate
-        alert("¡Fin del juego! Se han alcanzado los 25 turnos.");
+    
+        if (maxScore > 0) {
+            // Aumentar el número de victorias del jugador ganador
+            jugadores[winnerIndex].victorias++;
+            guardarJugadores();
+    
+            // Mostrar mensaje de que un jugador ha ganado
+            alert(`¡Fin del juego! El jugador ${winnerIndex + 1} ha ganado con ${maxScore} puntos.`);
+    
+            // Mostrar los puntajes después de cerrar la alerta
+            mostrarPuntajes();
+        } else {
+            // Si ningún jugador tiene puntos, es un empate
+            alert("¡Fin del juego! Es un empate.");
+    
+            // Mostrar los puntajes después de cerrar la alerta
+            mostrarPuntajes();
+        }
+    
+        // Actualizar la tabla de ganadores
+        mostrarTablaDeGanadores();
         playAgain.style.display = 'flex';
-
     }
+    
+    function mostrarPuntajes() {
+        // Actualizar el puntaje mostrado en el cartón de cada jugador
+        for (let i = 0; i < 4; i++) {
+            updateScoreDisplay(i);
+        }
+    }
+    
+    
 
     // Event listeners para los botones
     startGame.addEventListener('click', () => {
@@ -250,13 +344,12 @@ document.addEventListener('DOMContentLoaded', function(){
             turnoActual = generateUniqueRandomNumber();
             turnoCount++; // Incrementar el conteo de turnos
             updateTurnoDisplay();
-            if (turnoCount === 25) {
-                // Finalizar el juego si se alcanza el límite de turnos
-                endGame();
-            }
         } else {
             // Finalizar el juego si se intenta generar más turnos después de alcanzar el límite
             endGame();
         }
     });
+
+
 });
+
