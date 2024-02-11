@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function(){
     const rulesButton = document.getElementById('reglas-button');
     const gamerules = document.getElementById('GameRules');
     const Optiongoback = document.getElementById('OIrAtras-button');
+    const OptionGoBackRules = document.getElementById('OIrAtrasReglas-button');
     const Options = document.getElementById('level');
     const Gamecontent = document.getElementById('grid-container');
     const wordContainer = document.getElementById('wordContainer');
@@ -176,6 +177,8 @@ document.addEventListener('DOMContentLoaded', function(){
 
         // Si ningún jugador ha ganado, mostrar un mensaje de empate
         alert("¡Fin del juego! Se han alcanzado los 25 turnos.");
+        playAgain.style.display = 'flex';
+
     }
 
     // Event listeners para los botones
@@ -205,7 +208,15 @@ document.addEventListener('DOMContentLoaded', function(){
         startGame.style.display = 'flex';
         rulesButton.style.display = 'flex';
         Options.style.display = 'none';
-    });
+    })
+    
+    OptionGoBackRules.addEventListener('click', () => {
+        startGame.style.display = 'flex';
+        rulesButton.style.display = 'flex';
+        gamerules.style.display = 'none';
+
+    })
+    
 
     rulesButton.addEventListener('click', () => {
         startGame.style.display = 'none';

@@ -110,6 +110,9 @@ body {
 
 #reiniciar-button{
     display: none;
+    align-content: center;
+    align-items: center;
+    place-items: center;
 }
 
 #iniciar-button{
